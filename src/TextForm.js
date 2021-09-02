@@ -1,121 +1,71 @@
 import React, { useState } from 'react'
-import styled from 'styled-components'
 
 function TextForm(props) {
 
-    const [text, setText] = useState('Enter Text Here');
-    
 
-    const handleUpClick=()=>{
-       // console.log("Uppercase was clicked");
+    const [text, setText] = useState('');
+
+    const handleOnChange=(event)=>{
+        setText(event.target.value);
+    }
+
+    const handleUpperCase=()=>{
         let newText=text.toUpperCase();
         setText(newText);
     }
 
-    const handleLoClick=()=>{
-        // console.log("Uppercase was clicked");
-         let newText=text.toLowerCase();
-         setText(newText);
-     }
-
-     const handleClear=()=>{   
-         setText("");
-     }
-
-    const handleOnChange=(event)=>{
-        console.log("OnChange was clicked");
-        setText(event.target.value);
+    const handleLowerCase=()=>{
+        let newText=text.toLowerCase();
+        setText(newText);
     }
+
+    const handleCamelCase=()=>{
+        setText(text.toLowerCase().split(' ').map(word=>" "+word.charAt(0).toUpperCase()+word.slice(1)).join(''));
+    }
+
+    const handleSpace=()=>{
+        let newText=text.split(/[ ]+/);
+        setText(newText.join(" "));
+    }
+
+    const handleCopy=()=>{
+        let newText=document.getElementById("mybox");
+        newText.select();
+        navigator.clipboard.writeText(newText.value);
+    }
+
+    const handleClear=()=>{
+        setText('');
+
+    }
+
 
     return (
         <>
-        <Container>
-           <Wrap>
-               <h2>{props.heading}</h2>
-               <EntryPoint>
-               <TextField id="outlined-basic" value={text} onChange={handleOnChange} rows="8"/>
-               </EntryPoint> 
-               <Wraper>
-               <Button onClick={handleUpClick}>
-                   Convert to UpperCase
-               </Button>
-               <Button onClick={handleLoClick}>
-                   Convert to LowerCase
-               </Button>
-               
-               <Button>
-                   Convert to CamelCase
-               </Button>
-               <Button>
-                   CopyText
-               </Button>
-               <Button onClick={handleClear}>
-                   Clear Text
-               </Button>
-               </Wraper>
-           </Wrap>
-        </Container>
-        <Container>
-            <Wrap>
-                <h1>Your text Summary</h1>
-                <p>{text.split(" ").length} words</p>
-                <p>{text.length} characters</p>
-                <p>{0.008*text.length} Minutes to read</p>
-                <h3>Preview</h3>
-                <p>{text}</p>
-            </Wrap>
-        </Container>
+            <div className="container mb-3 my-3" style={{color:props.mode==='dark'?'white':'black'}}>
+                <h2>{props.heading}</h2>
+                <textarea className="form-control" value={text} style={{backgroundColor: props.mode==='dark'?'grey':'white', color:props.mode==='dark'?'white':'black'}} id="mybox" rows="8" onChange={handleOnChange}></textarea>
+            </div>
+            <div className="container mb-3 my-3 ">
+                <button className="btn btn-primary mx-2" onClick={handleUpperCase} >Convert to UpperCase</button>
+                <button className="btn btn-primary mx-2" onClick={handleLowerCase}>Convert to LowerCase</button>
+                <button className="btn btn-primary mx-2" onClick={handleCamelCase}>Convert to CamelCase</button>
+                <button className="btn btn-primary mx-2" onClick={handleSpace}>Remove extra space</button>
+                <button className="btn btn-primary mx-2" onClick={handleCopy}>Copy Text</button>
+                <button className="btn btn-primary mx-2" onClick={handleClear}>Clear Text</button>
+            </div>
+            <div className="container" style={{color:props.mode==='dark'?'white':'black'}}>
+                <h1>Your text summary</h1>
+                <p>{text.split(" ").length} <strong>words</strong>  {text.length} <strong>characters</strong></p>
+                <p>{0.008*text.length} <strong>Minutes to read.</strong></p>
+                <h2>Preview</h2>
+                <p>{text.length>0?text:"Enter text to Preview"}</p>
+            </div>
         </>
     )
 }
 
 export default TextForm;
-
-const Container=styled.div`
-       min-height:40vh;
-       width:100vw;
-       bakcground:#fff;
-`
-const Wrap=styled.div`
-     display:flex;
-     flex-direction:column;
-     padding:5px;
-     h2{
-         text-align:center;
-         align-items:center;
-         padding:10px;
-         margin-top:20px;
-     }
-`
-
-const EntryPoint=styled.div`
-     justify-content:center;
-     display:flex;
-`
-const TextField=styled.textarea`
-     width:80%;
-`
-
-const Wraper=styled.div`
-      display:flex;
-      justify-content:space-between;
-      margin-top:10px;
-`
-
-
-const Button=styled.button`
-      width:30vw;
-      padding:2px;
-      display:flex;
-      margin-right:5px;
-      justify-content:center;
-      background:blue;
-      color:white;
-      border:1px solid transparent;
-      border-radius:4px;
-      align-items:center;
-      text-align:center;
-`
 
 
 

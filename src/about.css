@@ -1,0 +1,16 @@
+.about{
+    background-image: url("https://images.unsplash.com/photo-1533134486753-c833f0ed4866?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1500&q=80");
+    height:100vh;
+    justify-content: center;
+    display: flex;
+    z-index: -1;
+}
+.avatar{
+    
+    background-image: url("https://d1fdloi71mui9q.cloudfront.net/x0Hg1IXOTAa4X1VGChef_4B0sNGjNEhr9L3P1");
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius:10px;
+}
