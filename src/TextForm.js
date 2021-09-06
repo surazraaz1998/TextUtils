@@ -36,8 +36,9 @@ function TextForm(props) {
         let newText=document.getElementById("mybox");
         newText.select();
         navigator.clipboard.writeText(newText.value);
+        document.getSelection().removeAllRanges();
         props.showAlert("Copied to clipboard","success");
-    }
+    } 
 
     const handleClear=()=>{
         setText('');
