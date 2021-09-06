@@ -12,31 +12,36 @@ function TextForm(props) {
     const handleUpperCase=()=>{
         let newText=text.toUpperCase();
         setText(newText);
+        props.showAlert("Converted to UpperCase","success");
     }
 
     const handleLowerCase=()=>{
         let newText=text.toLowerCase();
         setText(newText);
+        props.showAlert("Converted to LowerCase","success");
     }
 
     const handleCamelCase=()=>{
         setText(text.toLowerCase().split(' ').map(word=>" "+word.charAt(0).toUpperCase()+word.slice(1)).join(''));
+        props.showAlert("Converted to CamelCase","success");
     }
 
     const handleSpace=()=>{
         let newText=text.split(/[ ]+/);
         setText(newText.join(" "));
+        props.showAlert("Extra spaces removed","success");
     }
 
     const handleCopy=()=>{
         let newText=document.getElementById("mybox");
         newText.select();
         navigator.clipboard.writeText(newText.value);
+        props.showAlert("Copied to clipboard","success");
     }
 
     const handleClear=()=>{
         setText('');
-
+        props.showAlert("Cleared everything","success");
     }
 
 
